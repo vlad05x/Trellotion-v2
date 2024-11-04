@@ -10,13 +10,16 @@ export const CREATE_BOARD = "CREATE_BOARD";
 export const GET_BOARDS = "GET_BOARDS";
 export const DELETE_BOARD = "DELETE_BOARD";
 
+export const CREATE_TASK = "CREATE_TASK";
+export const GET_TASKS = "GET_TASKS";
+
 const BASE_URL = "http://localhost:3001";
 
 const setToken = () => {
   const token = localStorage.getItem("token");
   if (token) {
-    console.log("Token found:", token); 
-    setAuthToken(token); 
+    console.log("Token found:", token);
+    setAuthToken(token);
   } else {
     console.log("No token found in localStorage.");
   }
@@ -30,11 +33,33 @@ const apiCall = async (method, endpoint, data) => {
       method,
       url: `${BASE_URL}${endpoint}`,
       data,
-      headers, 
-    },);
+      headers,
+    });
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : { message: "Server error" };
+  }
+};
+
+export const createTask = (taskData) => async (dispatch) => {
+  console.log("Creating task with data:", taskData);
+  try {
+    const data = await apiCall("post", "/api/tasks", taskData);
+    dispatch({ type: CREATE_TASK, payload: data });
+    dispatch(getTasks(taskData.boardId));
+  } catch (error) {
+    console.error("Error creating task:", error);
+    dispatch({ type: SET_ERROR, payload: error.message });
+  }
+};
+
+export const getTasks = (boardId) => async (dispatch) => {
+  try {
+    const data = await apiCall("get", `/api/tasks/board/${boardId}`);
+    dispatch({ type: GET_TASKS, payload: data });
+  } catch (error) {
+    console.error("Error getting tasks:", error);
+    dispatch({ type: SET_ERROR, payload: error.message });
   }
 };
 
@@ -64,11 +89,11 @@ export const deleteBoard = (id) => async (dispatch) => {
     dispatch({ type: DELETE_BOARD, payload: id });
   } catch (error) {
     console.error("Error deleting board:", error);
-    const errorMessage = error.response?.data?.message || "Error deleting board.";
+    const errorMessage =
+      error.response?.data?.message || "Error deleting board.";
     dispatch({ type: SET_ERROR, payload: errorMessage });
   }
 };
-
 
 export const register = (formData) => async (dispatch) => {
   try {

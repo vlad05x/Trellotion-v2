@@ -1,4 +1,3 @@
-// редьюсер для досок (boardReducer.js)
 import { CREATE_BOARD, GET_BOARDS, DELETE_BOARD } from "./action";
 
 const initialState = {
