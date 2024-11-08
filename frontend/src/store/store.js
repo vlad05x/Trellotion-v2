@@ -1,8 +1,16 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { thunk } from "redux-thunk";
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { authReducer } from "./reducer";
 import { boardReducer } from "./boardReducer";
 import { taskReducer } from "./taskReducer";
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['auth', 'boards', 'tasks']
+};
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -10,6 +18,13 @@ const rootReducer = combineReducers({
   tasks: taskReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default store;
+const store = createStore(
+  persistedReducer,
+  applyMiddleware(thunk)
+);
+
+const persistor = persistStore(store);
+
+export { store, persistor };

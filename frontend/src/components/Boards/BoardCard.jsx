@@ -10,6 +10,7 @@ const BoardCard = ({ board }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleDelete = () => {
+    console.log(board)
     dispatch(deleteBoard(board._id));
   };
 

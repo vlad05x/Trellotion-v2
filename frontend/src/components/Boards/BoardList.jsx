@@ -1,23 +1,36 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getBoard } from '../../store/action';
-import BoardCard from './BoardCard';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getBoard } from "../../store/action";
+import BoardCard from "./BoardCard";
 
 const BoardList = () => {
-    const dispatch = useDispatch();
-    const boards = useSelector(state => state.boards.boards);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { boards } = useSelector((state) => state.boards);
+  const { token } = useSelector((state) => state.auth);
 
-    useEffect(() => {
-        dispatch(getBoard());
-    }, [dispatch]);
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+      return;
+    }
+    dispatch(getBoard());
+  }, [dispatch, token, navigate]);
 
-    return (
-        <div className="board-list">
-            {boards.map(board => (
-                <BoardCard key={board._id} board={board} />
-            ))}
-        </div>
-    );
+  if (!token) return null;
+
+  return (
+    <div className="board-list">
+      {boards && boards.length > 0 ? (
+        boards.map((board) => (
+          <BoardCard key={board._id} board={board} /> 
+        ))
+      ) : (
+        <p>No boards available</p>
+      )}
+    </div>
+  );
 };
 
 export default BoardList;

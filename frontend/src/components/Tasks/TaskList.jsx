@@ -2,30 +2,30 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTasks } from "../../store/action";
 import TaskCard from "./TaskCard";
+import "./TaskStyles.scss";
 
 const TaskList = ({ boardId }) => {
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.tasks.tasks);
+  const { tasks } = useSelector((state) => state.tasks);
+  
+  // Фильтруем задачи только для текущей доски
+  const boardTasks = tasks.filter(task => task.boardId === boardId);
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      console.log("Fetching tasks for board:", boardId); 
-      await dispatch(getTasks(boardId));
-    };
-
-    fetchTasks();
+    dispatch(getTasks(boardId));
   }, [dispatch, boardId]);
 
   return (
-    <div>
-      {tasks.length === 0 ? (
+    <div className="task-list">
+      {boardTasks.length === 0 ? (
         <p>No tasks available</p>
       ) : (
-        tasks.map((task) => <TaskCard key={task._id} task={task} />)
+        boardTasks.map((task) => (
+          <TaskCard key={task._id} task={task} />
+        ))
       )}
     </div>
   );
 };
-
 
 export default TaskList;

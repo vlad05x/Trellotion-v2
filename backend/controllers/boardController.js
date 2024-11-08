@@ -3,7 +3,7 @@ const Board = require("../models/Board");
 exports.createBoard = async (req, res) => {
   const { title } = req.body;
   try {
-    const board = await Board.create({ title, user: req.user.id }); 
+    const board = await Board.create({ title, user: req.user.id });
     res.status(201).json(board);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
@@ -12,16 +12,19 @@ exports.createBoard = async (req, res) => {
 
 exports.getBoards = async (req, res) => {
   try {
-    const boards = await Board.find({ user: req.user.id }); 
+    const boards = await Board.find({ user: req.user.id });
     res.json(boards);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
 };
 exports.deleteBoard = async (req, res) => {
+  console.log("User   ID:", req.user.id); 
   try {
     const board = await Board.findById(req.params.id);
     if (!board) return res.status(404).json({ message: "Board not found" });
+
+    console.log("Board User ID:", board.user.toString()); 
 
     if (board.user.toString() !== req.user.id) {
       return res.status(403).json({ message: "Not authorized" });
@@ -30,7 +33,7 @@ exports.deleteBoard = async (req, res) => {
     await board.deleteOne();
     res.json({ message: "Board removed" });
   } catch (error) {
-    console.error("Error deleting board:", error); 
+    console.error("Error deleting board:", error);
     res.status(500).json({ message: "Server error" });
   }
 };

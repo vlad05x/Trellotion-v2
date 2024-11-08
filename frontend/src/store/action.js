@@ -12,6 +12,7 @@ export const DELETE_BOARD = "DELETE_BOARD";
 
 export const CREATE_TASK = "CREATE_TASK";
 export const GET_TASKS = "GET_TASKS";
+export const SET_LOADING = "SET_LOADING";
 
 const BASE_URL = "http://localhost:3001";
 
@@ -25,38 +26,50 @@ const setToken = () => {
   }
 };
 
-const apiCall = async (method, endpoint, data) => {
+const apiCall = async (method, endpoint, data = null) => {
   const token = localStorage.getItem("token");
-  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  const headers = {
+    "Content-Type": "application/json",
+    ...(token && { Authorization: `Bearer ${token}` }),
+  };
   try {
-    const response = await axios({
+    const options = {
       method,
       url: `${BASE_URL}${endpoint}`,
-      data,
       headers,
-    });
+    };
+    if (data && method !== "delete") options.data = data; 
+    const response = await axios(options);
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : { message: "Server error" };
   }
 };
 
+
+export const setLoading = (isLoading) => ({
+  type: SET_LOADING,
+  payload: isLoading,
+});
+
 export const createTask = (taskData) => async (dispatch) => {
-  console.log("Creating task with data:", taskData);
   try {
     const data = await apiCall("post", "/api/tasks", taskData);
     dispatch({ type: CREATE_TASK, payload: data });
-    dispatch(getTasks(taskData.boardId));
+    return true;
   } catch (error) {
     console.error("Error creating task:", error);
     dispatch({ type: SET_ERROR, payload: error.message });
+    return false;
   }
 };
 
 export const getTasks = (boardId) => async (dispatch) => {
   try {
-    const data = await apiCall("get", `/api/tasks/board/${boardId}`);
-    dispatch({ type: GET_TASKS, payload: data });
+    const data = await apiCall("get", `/api/tasks/boards/${boardId}`);
+    if (Array.isArray(data)) {
+      dispatch({ type: GET_TASKS, payload: data });
+    }
   } catch (error) {
     console.error("Error getting tasks:", error);
     dispatch({ type: SET_ERROR, payload: error.message });
@@ -67,16 +80,20 @@ export const createBoard = (boardData) => async (dispatch) => {
   try {
     const data = await apiCall("post", "/api/boards", boardData);
     dispatch({ type: CREATE_BOARD, payload: data });
+    return true;
   } catch (error) {
     console.error("Error creating board:", error);
     dispatch({ type: SET_ERROR, payload: error.message });
+    return false;
   }
 };
 
 export const getBoard = () => async (dispatch) => {
   try {
     const data = await apiCall("get", "/api/boards");
-    dispatch({ type: GET_BOARDS, payload: data });
+    if (Array.isArray(data)) {
+      dispatch({ type: GET_BOARDS, payload: data });
+    }
   } catch (error) {
     console.error("Error getting boards:", error);
     dispatch({ type: SET_ERROR, payload: error.message });
@@ -95,14 +112,13 @@ export const deleteBoard = (id) => async (dispatch) => {
   }
 };
 
-export const register = (formData) => async (dispatch) => {
+export const login = (formData) => async (dispatch) => {
   try {
-    const { data } = await registerUser(formData);
+    const { data } = await loginUser(formData);
     dispatch({
-      type: REGISTER_SUCCESS,
+      type: LOGIN_SUCCESS,
       payload: { token: data.token, username: data.username },
     });
-    localStorage.setItem("token", data.token);
     setAuthToken(data.token);
     return true;
   } catch (error) {
@@ -111,14 +127,13 @@ export const register = (formData) => async (dispatch) => {
   }
 };
 
-export const login = (formData) => async (dispatch) => {
+export const register = (formData) => async (dispatch) => {
   try {
-    const { data } = await loginUser(formData);
+    const { data } = await registerUser(formData);
     dispatch({
-      type: LOGIN_SUCCESS,
+      type: REGISTER_SUCCESS,
       payload: { token: data.token, username: data.username },
     });
-    localStorage.setItem("token", data.token);
     setAuthToken(data.token);
     return true;
   } catch (error) {
@@ -128,7 +143,6 @@ export const login = (formData) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  localStorage.removeItem("token");
   setAuthToken(null);
   dispatch({ type: AUTH_FAIL, payload: null });
 };
