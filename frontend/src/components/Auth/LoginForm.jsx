@@ -9,7 +9,7 @@ function LoginForm() {
     email: "",
     password: "",
   });
-  const [error, setError] = useState(null); // Состояние для ошибок
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error: serverError } = useSelector((state) => state.auth);
@@ -24,15 +24,13 @@ function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Сбрасываем ошибки при новой попытке
+    setError(null); 
 
-    // Проверка на пустые поля
     if (!formData.email || !formData.password) {
       setError("Please fill in all fields.");
       return;
     }
 
-    // Проверка на корректность формата email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setError("Invalid email format.");

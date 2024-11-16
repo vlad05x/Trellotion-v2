@@ -10,7 +10,7 @@ function RegisterForm() {
     email: "",
     password: "",
   });
-  const [error, setError] = useState(null); // Состояние для ошибок
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
