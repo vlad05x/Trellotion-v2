@@ -1,0 +1,174 @@
+@import "../../App.scss";
+
+.task-modal {
+  background-color: $container-bg;
+  border: 1px solid $container-border;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.create-board-modal__form {
+  margin: 20px 0;
+}
+
+.task-input,
+.task-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid $container-border;
+  border-radius: 4px;
+  font-size: 16px;
+  color: $text-color;
+  background-color: $background-board;
+
+  &:focus {
+    border-color: $primary-color;
+  }
+}
+
+.task-button {
+  @extend .button;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+.buttons_actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-card {
+  background-color: $background-board;
+  border: 1px solid $container-border;
+  border-radius: 8px;
+  margin: 25px 0;
+  // height: 60px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $hover-bg;
+  }
+}
+
+.task-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  &__body {
+    background-color: #1f2937;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+    color: #f5f5f5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #b684fc;
+    margin-bottom: 8px;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    color: #d2b2fe;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__description {
+    font-size: 14px;
+    color: #e0e0e0;
+    margin: 10px 0 20px;
+  }
+
+  &__status-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+
+    .popup-modal__status-button {
+      background-color: #4b4b7c;
+      color: #ffffff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+
+      &:hover {
+        background-color: #3a3a6b;
+      }
+    }
+  }
+
+  &__close-button {
+    background-color: #ff6b6b;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 15px;
+  }
+}
+
+.box_status {
+  background-color: #6a5acd;
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.popup-modal__edit-button,
+.popup-modal__save-button {
+  background-color: #4b4b7c;
+  width: 100%;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  &:hover {
+    background-color: #3a3a6b;
+  }
+}

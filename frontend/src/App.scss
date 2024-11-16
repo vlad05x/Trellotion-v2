@@ -1,0 +1,148 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,regular,500,600,700);
+
+$primary-color: #0079bf;
+$primary-hover-color: #026aa7;
+$text-color: #f3f3f4;
+$background: #131b2a;
+$background-board: #1f2937;
+$container-bg: #1e2a38;
+$container-border: #666666;
+$hover-bg: #2d3748;
+$button-bg: $primary-color;
+$button-color: #ffffff;
+$delete-button-color: #a72c13;
+$delete-button-hover-color: #d9534f;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  background-color: $background;
+  color: $text-color;
+}
+
+[class*="__container"] {
+  max-width: 1230px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 300;
+  color: white;
+}
+
+.button {
+  background-color: $button-bg;
+  color: $button-color;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $primary-hover-color;
+  }
+}
+
+.delete-button {
+  align-self: flex-end;
+  background-color: $button-bg;
+  color: $button-color;
+  border: none;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $primary-hover-color;
+  }
+}
+
+.input-card__title-input {
+  background-color: #1f2937;
+  color: #fff;
+  border: 1px solid 374151;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.filter-form {
+  background-color: $container-bg;
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: $text-color;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .select-input,
+  .date-input {
+    background-color: $background-board;
+    color: $text-color;
+    border: 1px solid $container-border;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 0.5rem;
+
+    &:focus {
+      border-color: $primary-color;
+      outline: none;
+    }
+  }
+
+  .button {
+    background-color: $button-bg;
+    color: $button-color;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 1rem;
+
+    &:hover {
+      background-color: $primary-hover-color;
+    }
+  }
+}
+.filter-button {
+  margin-left: 20px;
+}

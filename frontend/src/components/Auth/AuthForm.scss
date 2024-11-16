@@ -1,0 +1,138 @@
+.auth-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #111827;
+  animation: fadeIn 1s ease-out;
+
+  .auth-form__container {
+    width: 600px;
+    height: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: translateY(30px);
+    animation: slideInUp 1s ease-out forwards;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeInText 1s 0.3s forwards;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: #6c757d;
+    opacity: 0;
+    animation: fadeInText 1.5s 0.5s forwards;
+  }
+
+  &__link {
+    color: #7e22ce;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      transition: text-decoration 0.3s;
+    }
+  }
+
+  &__input-group {
+    margin-bottom: 16px;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #374151;
+    border-radius: 4px;
+    background-color: #1f2937;
+    opacity: 0;
+    color: white;
+    transform: translateY(10px);
+    animation: slideInUp 3s 0.6s forwards;
+  }
+
+  &__button {
+    width: 100%;
+    padding: 10px;
+    background-color: #7e22ce;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: slideInUp 3.5s 0.7s forwards;
+
+    &:hover {
+      background-color: #5a4db0;
+      transition: background-color 0.3s;
+    }
+  }
+
+  &__checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: slideInUp 0.7s 0.8s forwards;
+
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+  }
+}
+
+.auth-form__error {
+  margin: 10px 0;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInText {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
