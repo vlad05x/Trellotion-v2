@@ -8,6 +8,8 @@ import App from './App';
 const container = document.getElementById('root');
 const root = createRoot(container); 
 
+console.log("React успешно загружен"); 
+
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>

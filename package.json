@@ -1,10 +1,13 @@
 {
+  "description": "Trellotion - Your Task Management App",
+  "author": "vlad05x",
   "name": "trellotion-v2",
   "version": "1.0.0",
   "main": "main.js",
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "concurrently": "^8.2.2",
-    "electron": "^33.2.0",
+    "electron": "^33.4.5",
     "electron-builder": "^25.1.8"
   },
   "scripts": {
@@ -12,7 +15,7 @@
     "start-electron": "electron .",
     "start-frontend": "cd frontend && npm start",
     "start-backend": "cd backend && npm run server",
-    "build": "cd frontend && npm run build && electron-builder"
+    "build": "cd frontend && npm run build && cd .. && electron-builder"
   },
   "build": {
     "appId": "com.example.trellotion",
@@ -25,10 +28,13 @@
       "frontend/build/**/*",
       "backend/**/*"
     ],
+    "extraMetadata": {
+      "main": "main.js"
+    },
     "extraResources": [
       {
-        "from": "./backend",
-        "to": "backend"
+        "from": "backend", 
+        "to": "backend"      
       }
     ],
     "win": {
@@ -37,6 +43,9 @@
     "linux": {
       "target": "AppImage",
       "category": "Utility"
+    },
+    "mac": {
+      "category": "public.app-category.productivity"
     }
   },
   "dependencies": {

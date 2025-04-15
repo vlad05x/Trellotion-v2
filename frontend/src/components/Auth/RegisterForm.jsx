@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../store/action";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./AuthForm.scss";
 
 function RegisterForm() {
@@ -61,9 +61,9 @@ function RegisterForm() {
         <h2 className="auth-form__title">Create your account</h2>
         <p className="auth-form__subtitle">
           Already have an account?{" "}
-          <a href="/" className="auth-form__link">
+          <Link to="/" className="auth-form__link">
             Log in
-          </a>
+          </Link>
         </p>
         <form className="auth-form__body" onSubmit={handleSubmit}>
           <div className="auth-form__input-group">

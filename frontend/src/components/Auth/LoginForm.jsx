@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/action";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link  } from "react-router-dom";
 import "./AuthForm.scss";
 
 function LoginForm() {
@@ -13,6 +13,7 @@ function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error: serverError } = useSelector((state) => state.auth);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,9 +56,9 @@ function LoginForm() {
         <h2 className="auth-form__title">Welcome back!</h2>
         <p className="auth-form__subtitle">
           Don’t have an account?{" "}
-          <a href="/register" className="auth-form__link">
+          <Link to="/register" className="auth-form__link">
             Sign up
-          </a>
+          </Link>
         </p>
         <form className="auth-form__body" onSubmit={handleSubmit}>
           <div className="auth-form__input-group">

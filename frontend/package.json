@@ -1,6 +1,9 @@
 {
+  "description": "Frontend of Trellotion, a task management app",
+  "author": "vlad05x",
   "name": "frontend",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -47,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "electron": "^35.0.2",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
